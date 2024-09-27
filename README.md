@@ -1,4 +1,4 @@
-# Go API client for pkg/galasaapi
+# Go API client for galasaapi
 
 The Galasa Ecosystem REST API allows you to interact with a Galasa Ecosystem.
 
@@ -23,7 +23,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import pkg/galasaapi "github.com/GIT_USER_ID/GIT_REPO_ID"
+import galasaapi "github.com/jt-nti/galasa-api-go"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -38,18 +38,18 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `pkg/galasaapi.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `galasaapi.ContextServerIndex` of type `int`.
 
 ```go
-ctx := context.WithValue(context.Background(), pkg/galasaapi.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), galasaapi.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `pkg/galasaapi.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `galasaapi.ContextServerVariables` of type `map[string]string`.
 
 ```go
-ctx := context.WithValue(context.Background(), pkg/galasaapi.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), galasaapi.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -60,13 +60,13 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `pkg/galasaapi.ContextOperationServerIndices` and `pkg/galasaapi.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `galasaapi.ContextOperationServerIndices` and `galasaapi.ContextOperationServerVariables` context maps.
 
 ```go
-ctx := context.WithValue(context.Background(), pkg/galasaapi.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), galasaapi.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), pkg/galasaapi.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), galasaapi.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -158,7 +158,7 @@ Authentication schemes defined for the API:
 Example
 
 ```go
-auth := context.WithValue(context.Background(), pkg/galasaapi.ContextAccessToken, "BEARER_TOKEN_STRING")
+auth := context.WithValue(context.Background(), galasaapi.ContextAccessToken, "BEARER_TOKEN_STRING")
 r, err := client.Service.Operation(auth, args)
 ```
 

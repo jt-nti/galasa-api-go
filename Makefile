@@ -65,7 +65,7 @@ $(OPENAPI_GENERATOR):
 .DEFAULT_GOAL := all
 
 .PHONY: all
-all: genapi gendocs
+all: genapi
 
 # deps allows us to install deps without running any checks.
 
@@ -82,14 +82,6 @@ $(GALASA_OPENAPI_YAML):
 
 .PHONY: genapi
 genapi: deps $(GALASA_OPENAPI_YAML)
-	OPENAPI_GENERATOR_VERSION=$(OPENAPI_GENERATOR_VERSION) openapi-generator-cli generate \
-		-i ${GALASA_OPENAPI_YAML} \
-		-g go \
-		-o pkg/galasaapi \
-		-c config.yaml
-
-.PHONY: gendocs
-gendocs: deps $(GALASA_OPENAPI_YAML)
 	OPENAPI_GENERATOR_VERSION=$(OPENAPI_GENERATOR_VERSION) openapi-generator-cli generate \
 		-i ${GALASA_OPENAPI_YAML} \
 		-g go \
