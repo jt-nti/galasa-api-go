@@ -36,3 +36,5 @@ docs/UpdateRunStatusRequest.md
 docs/User.md
 docs/UserData.md
 docs/UsersAPIAPI.md
+go.mod
+go.sum
