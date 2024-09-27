@@ -8,7 +8,7 @@ PROJECT := galasa-api-go
 OPENAPI_GENERATOR_VERSION := 7.8.0
 
 GALASA_OPENAPI_VERSION := 0.37.0
-GALASA_OPENAPI_YAML := openapi/openapi.yaml
+GALASA_OPENAPI_YAML := api/openapi.yaml
 
 # This is the commit hash for the https://github.com/googleapis/googleapis repo
 # GRPC_STATUS_VERSION := f36c65081b19e0758ef5696feca27c7dcee5475e
@@ -65,7 +65,7 @@ $(OPENAPI_GENERATOR):
 .DEFAULT_GOAL := all
 
 .PHONY: all
-all: genapi
+all: genapi gendocs
 
 # deps allows us to install deps without running any checks.
 
@@ -86,9 +86,18 @@ genapi: deps $(GALASA_OPENAPI_YAML)
 		-i ${GALASA_OPENAPI_YAML} \
 		-g go \
 		-o pkg/galasaapi \
-		--additional-properties=packageName=galasaapi \
-		--additional-properties=isGoSubmodule=false \
-		--global-property apis,apiDocs=false,apiTests=false
+		-c config.yaml
+
+.PHONY: gendocs
+gendocs: deps $(GALASA_OPENAPI_YAML)
+	OPENAPI_GENERATOR_VERSION=$(OPENAPI_GENERATOR_VERSION) openapi-generator-cli generate \
+		-i ${GALASA_OPENAPI_YAML} \
+		-g go \
+		-c config.yaml
+
+.PHONY: help
+help: deps $(GALASA_OPENAPI_YAML)
+	OPENAPI_GENERATOR_VERSION=$(OPENAPI_GENERATOR_VERSION) openapi-generator-cli config-help -g go
 
 # clean deletes any files not checked in and the cache for all platforms.
 

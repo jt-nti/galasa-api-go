@@ -9,8 +9,8 @@
 			"installMaven": true,
 			"version": "17",
 			"mavenVersion": "3.8.6"
-		}
-
+		},
+		"ghcr.io/devcontainers/features/go:1": {}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
